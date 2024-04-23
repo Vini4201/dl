@@ -237,3 +237,34 @@ for i in range(10):
             text = text + " " + word
             print(text)
             time.sleep(2)
+
+
+#SENTIMENT ANALYSIS
+
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+
+# Initialize the VADER sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+
+# Function to perform sentiment analysis on a given text
+def analyze_sentiment(text):
+    # Analyze the sentiment of the text
+    sentiment_scores = sid.polarity_scores(text)
+    
+    # Determine the overall sentiment
+    if sentiment_scores['compound'] >= 0.05:
+        sentiment = 'positive'
+    elif sentiment_scores['compound'] <= -0.05:
+        sentiment = 'negative'
+    else:
+        sentiment = 'neutral'
+    
+    return sentiment
+
+# Example usage
+text = "A P Shah Institute of Technology provides excellent education."
+sentiment = analyze_sentiment(text)
+print("Sentiment:", sentiment)
